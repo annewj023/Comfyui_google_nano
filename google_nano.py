@@ -257,22 +257,46 @@ class GoogleNanoNode:
 
         # 批量文件
         elif file_path:
-            clean_path = "".join(filter(lambda x: x in string.printable, file_path)).strip()
-            if (clean_path.startswith('"') and clean_path.endswith('"')) or (clean_path.startswith("'") and clean_path.endswith("'")):
+            # 改进的路径处理，支持中文路径和带引号的路径
+            clean_path = file_path.strip()
+            
+            # 移除路径两端的引号（支持单引号和双引号）
+            if (clean_path.startswith('"') and clean_path.endswith('"')) or \
+               (clean_path.startswith("'") and clean_path.endswith("'")):
                 clean_path = clean_path[1:-1]
+            
+            # 处理路径中的特殊字符，但保留中文字符
+            # 只移除不可打印的控制字符，保留中文等Unicode字符
+            import re
+            # 移除控制字符但保留正常的Unicode字符（包括中文）
+            clean_path = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', clean_path)
+            
+            # 标准化路径分隔符（Windows兼容性）
+            clean_path = os.path.normpath(clean_path)
+            
             if not os.path.exists(clean_path):
-                return (_pils_to_tensor(all_input_pils), f"错误：文件路径不存在: {clean_path}")
+                return (_pils_to_tensor(all_input_pils), f"错误：文件路径不存在: {clean_path}\n请检查路径是否正确，支持中文路径和带空格的路径。")
 
             if not HAS_PANDAS:
                 return (_pils_to_tensor(all_input_pils), "错误：批量模式需要 pandas，请先安装：pip install pandas openpyxl")
 
             try:
                 if clean_path.lower().endswith(".csv"):
-                    df = pd.read_csv(clean_path)
+                    # 使用UTF-8编码读取CSV文件，支持中文
+                    try:
+                        df = pd.read_csv(clean_path, encoding='utf-8')
+                    except UnicodeDecodeError:
+                        # 如果UTF-8失败，尝试GBK编码（中文Windows系统常用）
+                        try:
+                            df = pd.read_csv(clean_path, encoding='gbk')
+                        except UnicodeDecodeError:
+                            # 最后尝试自动检测编码
+                            df = pd.read_csv(clean_path, encoding='latin1')
                 else:
+                    # 读取Excel文件
                     df = pd.read_excel(clean_path, sheet_name="Sheet1")
             except Exception as e:
-                return (_pils_to_tensor(all_input_pils), f"读取文件失败：{e}")
+                return (_pils_to_tensor(all_input_pils), f"读取文件失败：{e}\n请确认：\n1. 文件格式是否正确（CSV或Excel）\n2. 文件是否被其他程序占用\n3. 文件编码是否正确（建议UTF-8）")
 
             if "prompt" not in df.columns:
                 return (_pils_to_tensor(all_input_pils), "错误：文件中未找到 'prompt' 列。")
