@@ -9,6 +9,8 @@ import numpy as np
 import torch
 from PIL import Image
 
+import random
+
 # 可选：批量模式支持 XLSX 需要 pandas 和 openpyxl
 try:
     import pandas as pd
@@ -150,6 +152,7 @@ class GoogleNanoNode:
             },
             "optional": {
                 "prompt": ("STRING", {"multiline": True, "default": ""}),
+                "random_trigger": ("INT", {"default": random.randint(0, 1_000_000)}),
                 "file_path": ("STRING", {"multiline": False, "default": ""}),
                 "site_url": ("STRING", {"multiline": False, "default": ""}),
                 "site_name": ("STRING", {"multiline": False, "default": ""}),
@@ -216,6 +219,7 @@ class GoogleNanoNode:
         self,
         api_key: str,
         prompt: str = "",
+        random_trigger: int = 0,
         file_path: str = "",
         site_url: str = "",
         site_name: str = "",
