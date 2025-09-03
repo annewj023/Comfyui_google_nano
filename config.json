@@ -26,7 +26,7 @@
     {
       "id": "key2",
       "name": "key2",
-      "value": "",
+      "value": "添加你的KEY",
       "encrypted": true,
       "status": "available",
       "stats": {
