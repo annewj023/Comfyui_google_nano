@@ -3,7 +3,7 @@
 一个功能增强的ComfyUI自定义节点，专为批量图像生成和API管理而设计。它通过OpenRouter平台调用Google Gemini模型，支持并发处理、多API Key管理、失败重试等企业级功能。
 使用时并发可能造成图像显示数量少于生成数量，在COMFYUI输出目录里可以找到所有生成的图片，key_management_mode推荐使用"使用配置文件KEY"模式(因为输入KEY模式最多支持4个，超过时用这个模式)
 
-![节点图片](./image/node.png)
+![节点图片](./image/node1.png)
 
 ## ✨ 核心增强功能
 
