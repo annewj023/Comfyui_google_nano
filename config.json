@@ -1,0 +1,73 @@
+{
+  "version": "1.0",
+  "api_keys": [
+    {
+      "id": "key1",
+      "name": "key1",
+      "value": "添加你的KEY",
+      "encrypted": true,
+      "status": "available",
+      "stats": {
+        "daily_remaining": 50,
+        "last_used": null,
+        "success_count": 0,
+        "error_count": 0,
+        "total_requests": 0,
+        "usage": 0.0,
+        "limit": null,
+        "remaining": "unlimited",
+        "is_free_tier": true,
+        "label": "",
+        "last_checked": ""
+      },
+      "cooldown_until": null,
+      "created_at": ""
+    },
+    {
+      "id": "key2",
+      "name": "key2",
+      "value": "",
+      "encrypted": true,
+      "status": "available",
+      "stats": {
+        "daily_remaining": 50,
+        "last_used": null,
+        "success_count": 0,
+        "error_count": 0,
+        "total_requests": 0,
+        "usage": 0.0,
+        "limit": null,
+        "remaining": "unlimited",
+        "is_free_tier": true,
+        "label": "",
+        "last_checked": ""
+      },
+      "cooldown_until": null,
+      "created_at": ""
+    }
+  ],
+  "settings": {
+    "max_concurrent": 5,
+    "scheduling_mode": "round_robin",
+    "enable_parallel": false,
+    "retry_attempts": 3,
+    "retry_delay": 1.0,
+    "log_level": "INFO",
+    "auto_reload": true,
+    "key_status_check_interval": 300,
+    "encryption_enabled": false,
+    "always_save_images": true,
+    "concurrent_timeout": 60,
+    "individual_task_timeout": 30,
+    "key_management_mode": "同时使用两者"
+  },
+  "models": [
+    "google/gemini-2.5-flash-image-preview:free",
+    "google/gemini-2.5-flash-image-preview"
+  ],
+  "rate_limits": {
+    "free_model_daily_limit": 50,
+    "free_model_minute_limit": 20,
+    "paid_model_minute_limit": 60
+  }
+}
