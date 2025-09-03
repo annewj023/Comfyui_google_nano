@@ -158,6 +158,10 @@ class GoogleNanoNode:
                 "image2": ("IMAGE",),
                 "image3": ("IMAGE",),
                 "image4": ("IMAGE",),
+                "image5": ("IMAGE",),
+                "image6": ("IMAGE",),
+                "image7": ("IMAGE",),
+                "image8": ("IMAGE",),
             },
         }
 
@@ -224,10 +228,14 @@ class GoogleNanoNode:
         image2=None,
         image3=None,
         image4=None,
+        image5=None,
+        image6=None,
+        image7=None,
+        image8=None,
     ):
         all_input_pils: List[Image.Image] = []
         try:
-            for img_tensor in [image1, image2, image3, image4]:
+            for img_tensor in [image1, image2, image3, image4, image5, image6, image7, image8]:
                 if img_tensor is not None:
                     all_input_pils.extend(_tensor_to_pils(img_tensor))
         except Exception as e:

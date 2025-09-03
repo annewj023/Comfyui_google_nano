@@ -1,6 +1,4 @@
-gradio
 pandas
 Pillow
 openpyxl
 openai
-requests
