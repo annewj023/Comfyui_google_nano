@@ -187,9 +187,9 @@ class GoogleNanoNode:
                 headers["X-Title"] = site_name
 
             if len(pil_refs) > 1:
-                full_prompt = f"{prompt_text}"
+                full_prompt = f"generate a new image based on the following prompt. '{prompt_text}'"
             else:
-                full_prompt = f"{prompt_text}"
+                full_prompt = f"generate a new image based on the following prompt. '{prompt_text}'"
 
             content = [{"type": "text", "text": full_prompt}]
             for pil_ref in pil_refs:
